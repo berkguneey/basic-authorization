@@ -26,28 +26,20 @@ const App = () => {
         />
         <AppRoute
           path="/campaign-list"
-          //isProtectedRoute={true}
+          isProtectedRoute={true}
           component={CampaignList}
-          requiredRole={"ADMIN"}
         />
         <AppRoute
           path="/campaign-create"
-          //isProtectedRoute={true}
+          isProtectedRoute={true}
           component={CampaignCreate}
-          requiredRole={"SELLER"}
         />
         <AppRoute
           path="/coupon-list"
-          //isProtectedRoute={true}
+          isProtectedRoute={true}
           component={CouponList}
-          requiredRole={["ADMIN", "SELLER"]}
         />
-        <AppRoute
-          path="/"
-          //isProtectedRoute={true}
-          component={Home}
-          requiredRole={"*"}
-        />
+        <AppRoute path="/" isProtectedRoute={true} component={Home} />
       </Switch>
     </>
   );

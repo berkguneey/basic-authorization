@@ -10,9 +10,19 @@ const fakeLoginResponse = {
   permissions: [
     {
       page: "CouponList",
-      path: "/coupon-list",
+      pageUrl: "/coupon-list",
       description: "Kupon Listeleme",
       actions: ["CAN_CLICK_BUTTON"],
+    },
+    {
+      page: "CampaignList",
+      pageUrl: "/campaign-list",
+      description: "Kampanya Listeleme",
+    },
+    {
+      page: "Home",
+      pageUrl: "/",
+      description: "Anasayfa",
     },
   ],
 };
@@ -27,9 +37,13 @@ function getUserRole() {
   return getAuthentication().role;
 }
 
+function getAuthorizedPages() {
+  return fakeLoginResponse.permissions;
+}
+
 function getUserActions() {
   return fakeLoginResponse.permissions.find(
-    (permission) => permission.path === window.location.pathname
+    (permission) => permission.pageUrl === window.location.pathname
   ).actions;
 }
 
@@ -39,6 +53,7 @@ function hasPermission(action) {
 
 export const userService = {
   getAuthentication,
+  getAuthorizedPages,
   getUserRole,
   getUserActions,
   hasPermission,

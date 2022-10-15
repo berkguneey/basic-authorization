@@ -4,14 +4,14 @@ import { userService } from "../services/user.service";
 
 export const AppRoute = ({
   component: Component,
-  //isProtectedRoute,
-  requiredRole,
+  isProtectedRoute,
+  path,
   ...rest
 }) => (
   <Route
     {...rest}
     render={(props) => {
-      if (requiredRole) {
+      if (isProtectedRoute) {
         if (!userService.getAuthentication()) {
           return (
             <Redirect
@@ -19,10 +19,13 @@ export const AppRoute = ({
             />
           );
         }
+
+        console.log(userService.getAuthorizedPages());
+
         if (
-          requiredRole &&
-          !requiredRole.includes(userService.getUserRole()) &&
-          requiredRole !== "*"
+          userService
+            .getAuthorizedPages()
+            .filter((page) => page.pageUrl === path).length <= 0
         ) {
           return <Redirect to={{ pathname: "/error-403" }} />;
         }
