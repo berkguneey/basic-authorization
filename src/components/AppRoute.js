@@ -19,9 +19,6 @@ export const AppRoute = ({
             />
           );
         }
-
-        console.log(userService.getAuthorizedPages());
-
         if (
           userService
             .getAuthorizedPages()
